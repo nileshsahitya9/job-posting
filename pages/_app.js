@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import App from 'next/app';
 
-import '../styles/main.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class MyApp extends App {
 	static async getInitialProps({ Component, ctx, query }) {
@@ -20,7 +20,7 @@ class MyApp extends App {
 		return (
 			<React.Fragment>
 				<Head>
-					<title>Create Next App</title>
+					<title>Job Search</title>
 					<link rel="icon" href="/favicon.ico" />
 				</Head>
 				<Component {...pageProps}/>
