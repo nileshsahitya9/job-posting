@@ -12,7 +12,9 @@ const Home = () => (
 				</Link>
 			</Col>
 			<Col md={6} className='text-center mt-5'>
-				<Button size='lg'>Create Posting</Button>
+				<Link href='/create'>
+					<Button size='lg'>Create Posting</Button>
+				</Link>
 			</Col>
 		</Row>
 	</Container>

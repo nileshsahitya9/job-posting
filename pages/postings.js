@@ -1,21 +1,17 @@
 import React from "react";
-import {Container, Row, Table} from "react-bootstrap";
+import Link from "next/link";
+import {Container, Row, Table, Button} from "react-bootstrap";
 
-const postings = [
-	{
-		jobTitle: 'Software Engineer',
-		company: 'Google',
-		summary: 'Optimize database queries using Node.js and PostgreSQL. Lead a team of software developers.',
-		requiredSkills: 'SQL, Node.js, Python',
-		recruiterEmail: 'jacob@google.com'
-	},
-];
-
-const Home = () => (
+const Postings = ({posts}) => (
 	<Container>
-		<Row className='h-100 justify-content-center mt-5'>
+		<Link href='/'>
+			<Button size='lg' className='mt-5'>
+				&larr; Back
+			</Button>
+		</Link>
+		<Row className='h-100 justify-content-center'>
 			<h1 className='display-1 text-center w-100'>Job Postings</h1>
-			<Table className='mt-5' striped bordered hover>
+			<Table responsive className='mt-5' striped bordered hover>
 				<thead>
 					<tr>
 						<th>Job Title</th>
@@ -27,13 +23,13 @@ const Home = () => (
 				</thead>
 				<tbody>
 				{
-					postings.map(({ jobTitle, company, summary, requiredSkills, recruiterEmail }) => (
-						<tr>
-							<td>{jobTitle}</td>
+					posts.map(({ title, company, summary, skills, email }, id) => (
+						<tr key={company + id}>
+							<td>{title}</td>
 							<td>{company}</td>
 							<td>{summary}</td>
-							<td>{requiredSkills}</td>
-							<td>{recruiterEmail}</td>
+							<td>{skills}</td>
+							<td>{email}</td>
 						</tr>
 					))
 				}
@@ -43,4 +39,10 @@ const Home = () => (
 	</Container>
 );
 
-export default Home;
+export default Postings;
+
+Postings.getInitialProps = async params => {
+	const postsData = await fetch(`${process.env.BACKEND_URL}/postings`);
+	const posts = await postsData.json();
+	return {posts};
+};
