@@ -27,7 +27,7 @@ const Postings = ({posts}) => (
 						<tr key={company + id}>
 							<td>{title}</td>
 							<td>{company}</td>
-							<td>{summary}</td>
+							<td>{summarys}</td>
 							<td>{skills}</td>
 							<td>{email}</td>
 						</tr>
