@@ -24,8 +24,9 @@ app
 			if (err) throw err;
 			console.log('READY ON PORT:', PORT);
 		});
+
 	})
-	.catch((ex) => {
+	.catch(ex => {
 		console.error(ex.stack)
 		process.exit(1)
 	});
