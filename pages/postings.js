@@ -42,7 +42,11 @@ const Postings = ({posts}) => (
 export default Postings;
 
 Postings.getInitialProps = async params => {
-	const postsData = await fetch(`${process.env.BACKEND_URL}/postings`);
-	const posts = await postsData.json();
+	let posts = [];
+	const res = await fetch(`${process.env.BACKEND_URL}/postings`);
+	const resJson = await res.json();
+	if (resJson.success) {
+		posts = resJson.data.postings;
+	}
 	return {posts};
 };

@@ -2,19 +2,10 @@ const express = require('express');
 const next = require('next');
 const routes = require('../routes');
 const bodyParser = require('body-parser');
-const path = require('path');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = routes.getRequestHandler(app);
-
-const knex = require('knex')({
-	client: 'sqlite3',
-	connection: {
-		filename: path.resolve(__dirname, './jobs.db')
-	},
-	useNullAsDefault: true
-});
 
 app
 	.prepare()
@@ -22,10 +13,7 @@ app
 		const server = express();
 		server.use(bodyParser.json());
 
-		server.get('/api/postings', async (req, res) => {
-			const postings = await knex('Posting');
-			res.send(postings);
-		});
+		server.use('/api', require('./api'));
 
 		server.get('*', (req, res) => {
 			return handle(req, res);
