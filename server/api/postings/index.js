@@ -8,13 +8,30 @@ router.get('/', async (req, res) => {
     const postings = await db('Posting');
     res.send({
       success: true,
-      data: {postings}
+      data: { postings }
     });
-  } catch(e) {
+  } catch (e) {
     res.send({
       success: false
     });
   }
 });
+
+
+router.post('/', async (req, res) => {
+  try {
+
+    const payload = req.body;
+    await db('Posting').insert({ ...payload });
+    res.send({
+      success: true,
+    });
+  } catch (e) {
+    res.send({
+      success: false
+    });
+  }
+});
+
 
 module.exports = router;
